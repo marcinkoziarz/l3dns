@@ -1,7 +1,7 @@
 package pl.koziarz.l3.dns.protocol;
 
+import java.io.DataInputStream;
 import java.io.IOException;
-import pl.koziarz.l3.dns.protocol.io.ByteArrayDataInputStream;
 
 /**
  *
@@ -36,7 +36,7 @@ public class DNSStringFactory {
 		return ret;
 	}
 	
-	public static String decode(ByteArrayDataInputStream dis) throws DNSException, IOException {
+	public static String decode(DataInputStream dis) throws DNSException, IOException {
 		StringBuilder sb = new StringBuilder();
 
 		int count;
@@ -47,15 +47,16 @@ public class DNSStringFactory {
 				break;
 			}
 			if( count>= 192 ) {
-				int ptr = dis.readUnsignedByte();
+				throw new DNSException("Pointers in strings are not yet supported");
+				//int ptr = dis.readUnsignedByte();
 				//System.out.println("_from_pointer_");
 				//System.out.flush();
 				//return "_from_pointer_";
-				ByteArrayDataInputStream badis = dis.clone();
-				badis.reset();
-				badis.skipBytes(ptr);
-				String str = decode(badis);
-				return sb.toString()+str;
+				//ByteArrayDataInputStream badis = dis.clone();
+				//badis.reset();
+				//badis.skipBytes(ptr);
+				//String str = decode(badis);
+				//return sb.toString()+str;
 			}
 			for( int i=0; i<count; ++i ) {
 				int a = dis.readUnsignedByte();

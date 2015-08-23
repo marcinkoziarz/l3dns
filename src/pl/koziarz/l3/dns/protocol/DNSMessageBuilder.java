@@ -1,10 +1,11 @@
 package pl.koziarz.l3.dns.protocol;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
-import pl.koziarz.l3.dns.protocol.io.ByteArrayDataInputStream;
 
 /**
  *
@@ -22,9 +23,8 @@ public class DNSMessageBuilder {
 	
 	public static DNSMessage build(byte[] data, int offset, int length) throws DNSException {
 		try {
-			ByteArrayDataInputStream dis = new ByteArrayDataInputStream(data, 0, length);
 			//DNSMessage a = DNSMessage.decode(dis);
-			
+			DataInputStream dis = new DataInputStream(new ByteArrayInputStream(data, offset, length));
 			// decode header
 			int id = dis.readUnsignedShort();
 			int flags = dis.readUnsignedShort();

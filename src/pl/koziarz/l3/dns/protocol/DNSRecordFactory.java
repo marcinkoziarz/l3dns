@@ -5,22 +5,16 @@
 package pl.koziarz.l3.dns.protocol;
 
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.Inet4Address;
-import java.net.Inet6Address;
-import static pl.koziarz.l3.dns.protocol.DNSRecordType.A;
-import static pl.koziarz.l3.dns.protocol.DNSRecordType.AAAA;
-import static pl.koziarz.l3.dns.protocol.DNSRecordType.CNAME;
-import static pl.koziarz.l3.dns.protocol.DNSRecordType.NS;
-import static pl.koziarz.l3.dns.protocol.DNSRecordType.SOA;
+
 import pl.koziarz.l3.dns.protocol.dnsrecorddata.DNSRecordA;
 import pl.koziarz.l3.dns.protocol.dnsrecorddata.DNSRecordAAAA;
 import pl.koziarz.l3.dns.protocol.dnsrecorddata.DNSRecordCNAME;
 import pl.koziarz.l3.dns.protocol.dnsrecorddata.DNSRecordMX;
 import pl.koziarz.l3.dns.protocol.dnsrecorddata.DNSRecordNS;
 import pl.koziarz.l3.dns.protocol.dnsrecorddata.DNSRecordSOA;
-import pl.koziarz.l3.dns.protocol.io.ByteArrayDataInputStream;
 import pl.koziarz.l3.dns.protocol.io.IPv4;
 import pl.koziarz.l3.dns.protocol.io.IPv6;
 
@@ -29,8 +23,8 @@ import pl.koziarz.l3.dns.protocol.io.IPv6;
  * @author Marcin Koziarz <marcin@koziarz.pl>
  */
 public class DNSRecordFactory {
-	public static DNSRecord createRecord(ByteArrayDataInputStream dis) throws DNSException {
-		int begin=dis.position();
+	public static DNSRecord createRecord(DataInputStream dis) throws DNSException {
+		//int begin=dis.position();
 		try {
 			String name = DNSStringFactory.decode(dis);
 			int btype = dis.readUnsignedShort();
